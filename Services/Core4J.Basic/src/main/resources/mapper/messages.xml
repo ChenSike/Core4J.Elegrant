@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ikcoder.services.mappers.Mapper_messages">
+
+    <select id="Select_message_message" resultType="ikcoder.entities.coredb_basic.DTO.DTO_message">
+        select * from messages where message=#{message}
+    </select>
+
+    <select id="Select_message_code" resultType="ikcoder.entities.coredb_basic.DTO.DTO_message">
+        select * from messages where code=#{code}
+    </select>
+
+</mapper>

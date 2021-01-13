@@ -1,0 +1,21 @@
+spring:
+  datasource:
+    username: root
+    password: 123456789
+    url: jdbc:mysql://192.168.3.46:3311/coredb_basic?serverTimezone=UTC
+    driver-class-name: com.mysql.jdbc.Driver
+    type: com.alibaba.druid.pool.DruidDataSource
+  redis:
+    host: 192.168.3.46
+    port: 6379
+    timeout: 30000
+  session:
+    store-type: redis
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+  config-location: classpath:config/mybatis$coredb_basic.xml
+server:
+  port: 8081
+logging:
+  file:
+    path: logs/

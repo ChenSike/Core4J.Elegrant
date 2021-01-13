@@ -1,0 +1,3 @@
+1.mongo run : docker run -itd --name mongo -p 27017:27017 mongo --auth
+2.admin create ：docker exec -it mongo mongo admin
+3.user & password create : db.createUser({ user:'admin',pwd:'01070624',roles:[ { role:'userAdminAnyDatabase', db: 'admin'},"readWriteAnyDatabase"]});

@@ -1,0 +1,6 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="Core4J.Entities">
+    <output-path>$PROJECT_DIR$/../../Ops/Libs</output-path>
+    <root id="archive" name="Core4J.Entities.jar" />
+  </artifact>
+</component>
