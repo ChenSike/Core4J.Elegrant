@@ -3,10 +3,10 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="ikcoder.services.mappers.Mapper_inst_mapinfo">
-    <select id="Select_item_code" resultType="List<ikcoder.entities.coredb_basic.DTO.DTO_inst_mapinfo">
+    <select id="Select_item_code" resultType="java.util.HashMap">
         select * from inst_mapinfo where inst_code=#{inst_code}
     </select>
-    <select id="select_inst_id" resultType="List<ikcoder.entities.coredb_basic.DTO.DTO_inst_mapinfo">
+    <select id="select_inst_id" resultType="java.util.HashMap">
         select * from inst_mapinfo where inst_code=#{id}
     </select>
     <insert id="Insert_item">

@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface Mapper_users {
 
-    public DTI_users Select_users_id(int id);
+    public DTO_users Select_users_id(int id);
 
     public DTO_users Select_users_uid(String uid);
 
@@ -20,7 +20,7 @@ public interface Mapper_users {
 
     public void Delete_users_id(int id);
 
-    public void Delete_users_uername(String username);
+    public void Delete_users_uid(String username);
 
     public List<DTO_users> Select_users();
 

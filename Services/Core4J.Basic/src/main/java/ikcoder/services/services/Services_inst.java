@@ -2,6 +2,7 @@ package ikcoder.services.services;
 
 import ikcoder.entities.coredb_basic.DT.DT_inst;
 import ikcoder.entities.coredb_basic.DTI.DTI_inst;
+import ikcoder.entities.coredb_basic.DTO.DTO_inst;
 import ikcoder.services.mappers.Mapper_inst;
 import ikcoder.services.mappers.Mapper_messages;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class Services_inst {
+
     Mapper_inst mapper_inst;
     Mapper_messages mapper_messages;
 
@@ -18,8 +20,11 @@ public class Services_inst {
         this.mapper_messages = mapper_messages;
     }
 
+    public Services_inst() {
+    }
+
     public String GetFirstCode(Integer id) {
-        DT_inst dt_inst = mapper_inst.select_inst_id(id);
+        DT_inst dt_inst = mapper_inst.Select_inst_id(id);
         return dt_inst.getCode();
     }
 
@@ -39,6 +44,20 @@ public class Services_inst {
         {
             return false;
         }
+    }
+
+    public boolean IsExisted(String inst_code) {
+        DT_inst dt_inst = mapper_inst.Select_inst_code(inst_code);
+        if (dt_inst != null)
+            return true;
+        else
+            return false;
+    }
+
+    public DT_inst SelectInst(String inst_code)
+    {
+        DT_inst dt_inst = mapper_inst.Select_inst_code(inst_code);
+        return dt_inst;
     }
 
 }

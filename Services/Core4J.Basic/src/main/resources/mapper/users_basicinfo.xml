@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ikcoder.services.mappers.Mapper_users_basicinfo">
+    <select id="Select_users_basicinfo" resultType="ikcoder.entities.coredb_basic.DTO.DTO_users_basicinfo">
+        select * from users_basic where userid=#{userid}
+    </select>
+</mapper>

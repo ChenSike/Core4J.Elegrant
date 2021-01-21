@@ -1,16 +1,21 @@
 spring:
   datasource:
     username: root
-    password: 123456789
-    url: jdbc:mysql://192.168.3.46:3311/coredb_basic?serverTimezone=UTC
+    password: 12345678
+    #url: jdbc:mysql://192.168.3.48:3306/coredb_basic?serverTimezone=UTC
+    url: jdbc:mysql://127.0.0.1:3306/coredb_basic?serverTimezone=UTC
     driver-class-name: com.mysql.jdbc.Driver
     type: com.alibaba.druid.pool.DruidDataSource
   redis:
-    host: 192.168.3.46
+    host: 192.168.3.48
     port: 6379
     timeout: 30000
   session:
     store-type: redis
+  data:
+    mongodb:
+      uri: mongodb://admin:01070624@192.168.3.48:27017/?authSource=admin
+      database: elegrant
 mybatis:
   mapper-locations: classpath:mapper/*.xml
   config-location: classpath:config/mybatis$coredb_basic.xml

@@ -1,0 +1,18 @@
+sudo docker run -p 3306:3306 --name mysql -e MYSQL_ROOT_PASSWORD=01070624 -d mysql:5.7
+
+MAP ：
+
+duso docker run -p 3306:3306 --name mysql \
+-v /usr/local/docker/mysql/conf:/etc/mysql \
+-v /usr/local/docker/mysql/logs:/var/log/mysql \
+-v /usr/local/docker/mysql/data:/var/lib/mysql \
+-e MYSQL_ROOT_PASSWORD=123456 \
+-d mysql:5.7
+
+Access:
+
+use mysql;
+select host,user,password from user;
+grant all privileges  on *.* to root@'%' identified by "password";
+flush privileges;
+select host,user,password from user;

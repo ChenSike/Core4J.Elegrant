@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ikcoder.services.mappers.Mapper_term">
+    <select id="Select_StartYear" resultType="ikcoder.entities.coredb_basic.DTO.DTO_term">
+        select * from term where start_year=#{start_year}
+    </select>
+    <select id="Select_EndYear" resultType="ikcoder.entities.coredb_basic.DTO.DTO_term">
+        select * from term where end_year=#{end_year}
+    </select>
+    <select id="Select_InstCode" resultType="ikcoder.entities.coredb_basic.DTO.DTO_term">
+        select * from term where inst_code=#{inst_code}
+    </select>
+    <delete id="Remove_Item">
+        delete from term where id=#{id}
+    </delete>
+    <insert id="Insert_NewItem">
+        insert into term(start_year,start_month,end_year,end_month,comment,inst_code) values(#{start_year},#{start_month},#{end_year},#{end_month},#{comment},#{inst_code})
+    </insert>
+
+</mapper>

@@ -7,13 +7,13 @@
         select * from users where id=#{id}
     </select>
     <select id="Select_users_uid" resultType="ikcoder.entities.coredb_basic.DTO.DTO_users">
-        select * from users where username=#{usrname}
+        select * from users where uid=#{uid}
     </select>
     <select id="Select_users" resultType="ikcoder.entities.coredb_basic.DTO.DTO_users">
         select * from users
     </select>
     <insert id="Insert_users">
-        insert into users(username,pwd,status,usrtype) values(#{username},#{pwd},#{status},#{usrtype})
+        insert into users(uid,pwd,status,usrtype) values(#{uid},#{pwd},#{status},#{usrtype})
     </insert>
     <update id="Update_users_pwd">
         update users set pwd=#{pwd} where id=#{id}
@@ -25,6 +25,6 @@
         delete from users where id = #{id}
     </delete>
     <delete id="Delete_users_uername">
-        delete from users where username = #{username}
+        delete from users where uid = #{uid}
     </delete>
 </mapper>

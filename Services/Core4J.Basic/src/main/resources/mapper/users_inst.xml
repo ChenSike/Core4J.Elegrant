@@ -3,7 +3,7 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="ikcoder.services.mappers.Mapper_users_inst">
-    <select id="Select_userid" resultType="List<ikcoder.entities.coredb_basic.DTO.DTO_users_inst>">
-        select * from inst where user_id=#{userid}
+    <select id="Select_userid" resultType="java.util.HashMap">
+            select * from inst where user_id=#{userid}
     </select>
 </mapper>

@@ -82,9 +82,9 @@ public class Controller_users {
                 UUID uuid = UUID.randomUUID();
                 httpSession.setAttribute(Conf_symbol.symbol_token, uuid.toString());
                 dto_users.setCode(inst_code);
-                String strJson = JSON.toJSONString(dto_users);
+                dto_users.setToken(uuid.toString());
                 this._httpServletResponse.addHeader("token", uuid.toString());
-                this._redisTemplate.opsForValue().set(uuid.toString(), strJson, Conf_common.timeout_session, TimeUnit.SECONDS);
+                Services_common.writeUserIntoRedis(dto_users);
                 return Services_common.newCommonResItem(_servicesMessages.GetMessage_code("8002"), "8002", false);
             case 2:
                 return Services_common.newCommonResItem( _servicesMessages.GetMessage_code("4003"), "4003", false);
