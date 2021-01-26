@@ -6,8 +6,16 @@ public class DT_users_mapinfo extends DTC_common {
 
     Integer id;
     Integer uid;
-    String docid_basic;
     Integer inst_id;
+    String docid_userpf;
+
+    public String getDocid_userpf() {
+        return docid_userpf;
+    }
+
+    public void setDocid_userpf(String docid_userpf) {
+        this.docid_userpf = docid_userpf;
+    }
 
     public Integer getId() {
         return id;
@@ -23,14 +31,6 @@ public class DT_users_mapinfo extends DTC_common {
 
     public void setUid(Integer uid) {
         this.uid = uid;
-    }
-
-    public String getDocid_basic() {
-        return docid_basic;
-    }
-
-    public void setDocid_basic(String docid_basic) {
-        this.docid_basic = docid_basic;
     }
 
     public Integer getInst_id() {

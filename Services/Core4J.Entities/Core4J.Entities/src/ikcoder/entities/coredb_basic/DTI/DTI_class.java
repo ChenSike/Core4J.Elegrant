@@ -6,6 +6,15 @@ public class DTI_class {
     String name;
     Integer uid_owner;
     String current_term;
+    String startYear;
+
+    public String getStartYear() {
+        return startYear;
+    }
+
+    public void setStartYear(String startYear) {
+        this.startYear = startYear;
+    }
 
     public String getCurrent_term() {
         return current_term;

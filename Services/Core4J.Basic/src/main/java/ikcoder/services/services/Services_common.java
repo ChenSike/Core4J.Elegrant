@@ -1,7 +1,11 @@
 package ikcoder.services.services;
 
+import com.alibaba.druid.sql.ast.statement.SQLAlterTableTouch;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import de.siegmar.fastcsv.reader.CsvContainer;
+import de.siegmar.fastcsv.reader.CsvReader;
+import de.siegmar.fastcsv.reader.CsvRow;
 import ikcoder.entities.coredb_basic.DTC.DTC_common;
 import ikcoder.entities.coredb_basic.DTO.DTO_common;
 import ikcoder.entities.coredb_basic.DTO.DTO_common_message;
@@ -13,8 +17,10 @@ import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.Calendar;
-import java.util.Date;
+import java.io.File;
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.util.*;
 import java.util.concurrent.TimeUnit;
 
 @Component
@@ -49,6 +55,72 @@ public class Services_common {
         return DTO_common;
     }
 
+    public static Map<String,String> GetCVSHeaderMap(String filePath) throws IOException {
+        File file = new File(filePath);
+        CsvReader csvReader = new CsvReader();
+        CsvContainer csv = csvReader.read(file, StandardCharsets.UTF_8);
+        List<String> headers = csv.getHeader();
+        Integer headerIndex = 0;
+        Map<String,String> resultHeaders = new HashMap<>();
+        for (String tmpHeader:headers)
+        {
+            resultHeaders.put(headerIndex.toString(),tmpHeader);
+            headerIndex++;
+        }
+        return resultHeaders;
+    }
+
+    public static List<Map<String,String>> GetCVSResultForName(String filePath) throws IOException {
+        List<Map<String,String>> returnResult = new ArrayList<>();
+        File file = new File(filePath);
+        CsvReader csvReader = new CsvReader();
+        CsvContainer csv = csvReader.read(file, StandardCharsets.UTF_8);
+        List<CsvRow> dataRows = csv.getRows();
+        List<String> lstHeader = csv.getHeader();
+        for(CsvRow tmpRow:dataRows)
+        {
+            Map<String,String> rowItem = new HashMap<>();
+            for (String strHeader:lstHeader)
+            {
+                rowItem.put(strHeader,tmpRow.getField(strHeader));
+            }
+            returnResult.add(rowItem);
+        }
+        return returnResult;
+    }
+
+    public static List<Map<String,String>> GetCVSResultForIndex(String filePath) throws IOException {
+        List<Map<String,String>> returnResult = new ArrayList<>();
+        File file = new File(filePath);
+        CsvReader csvReader = new CsvReader();
+        CsvContainer csv = csvReader.read(file, StandardCharsets.UTF_8);
+        List<CsvRow> dataRows = csv.getRows();
+        for(CsvRow tmpRow:dataRows)
+        {
+            Integer headerIndex = 0;
+            Map<String,String> rowItem = new HashMap<>();
+            for(;headerIndex<tmpRow.getFieldCount();headerIndex++)
+            {
+                rowItem.put(headerIndex.toString(),tmpRow.getField(headerIndex));
+            }
+            returnResult.add(rowItem);
+        }
+        return returnResult;
+    }
+
+    public static boolean ClearUploadTmpFile(String filePath)
+    {
+        try {
+            File file = new File(filePath);
+            file.delete();
+            return true;
+        }
+        catch (Exception err)
+        {
+            return false;
+        }
+    }
+
     public static DTO_common newCommonResStringItem(String message, String code, Boolean isExceptioned)
     {
         DTO_common_message dto_common_message = new DTO_common_message();
@@ -77,6 +149,11 @@ public class Services_common {
         }
         else
             return null;
+    }
+
+    public static String getTmpPoolPath()
+    {
+        return "tmppool";
     }
 
     public static String getInstCode()

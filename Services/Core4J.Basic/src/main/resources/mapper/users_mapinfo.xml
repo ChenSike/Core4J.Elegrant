@@ -3,21 +3,15 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="ikcoder.services.mappers.Mapper$users_mapinfo">
-    <select id="SelectMapinfo_docid" resultType="ikcoder.entities.coredb_basic.DTO.DTO_users_mapinfoDocid">
-        select docid from users_mapinfo where uid=#{uid}
+    <select id="SelectMapinfoByUID" resultType="ikcoder.entities.coredb_basic.DT.DT_users_mapinfo">
+        select * from users_mapinfo where uid=#{uid}
     </select>
-    <select id="SelectMapinfo_appid" resultType="ikcoder.entities.coredb_basic.DTO.DTO_users_mapinfoAppid">
-        select appid from users_mapinfo where uid=#{uid}
+    <select id="SelectMapinfoByID" resultType="ikcoder.entities.coredb_basic.DT.DT_users_mapinfo">
+        select appid from users_mapinfo where id=#{id}
     </select>
     <insert id="InsertMapinfo">
-        insert into users_mapinfo(uid,docid_basic,inst_id) values(#{uid},#{docid_basic},#{inst_id})
+        insert into users_mapinfo(uid,inst_id,docid_userpf) values(#{uid},#{inst_id},#{docid_userpf})
     </insert>
-    <update id="UpdateMapinfo_docid">
-        update users_mapinfo set docid=#{docid} where uid=#{uid}
-    </update>
-    <update id="UpdateMapinfo_appid">
-        update users_mapinfo set appid=#{appid} where uid=#{uid}
-    </update>
     <delete id="RemoveMapinfo">
         delete from users_mapinfo where id = #{id}
     </delete>

@@ -1,5 +1,6 @@
 package ikcoder.services.services;
 
+import ikcoder.entities.coredb_basic.DT.DT_users_mapinfo;
 import ikcoder.entities.coredb_basic.DTI.DTI_users_mapinfo;
 import ikcoder.services.mappers.Mapper_users_mapinfo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,12 +21,11 @@ public class Services_users_mapinfo {
     public boolean NewMapInfo(Integer uid)
     {
         try {
-            DTI_users_mapinfo DTI_users_mapinfo = new DTI_users_mapinfo();
-            DTI_users_mapinfo.setUid(uid);
-            String newDocId = UUID.randomUUID().toString();
-            DTI_users_mapinfo.setDocid_basic(newDocId);
-            String newAppId = UUID.randomUUID().toString();
-            mapperUsers_mapinfo.InsertMapinfo(DTI_users_mapinfo);
+            DTI_users_mapinfo dti_users_mapinfo = new DTI_users_mapinfo();
+            dti_users_mapinfo.setUid(uid);
+            String docid_userpf = UUID.randomUUID().toString();
+            dti_users_mapinfo.setDocid_userpf(docid_userpf);
+            mapperUsers_mapinfo.InsertMapinfo(dti_users_mapinfo);
             return true;
         }
         catch (Exception e)
@@ -34,13 +34,12 @@ public class Services_users_mapinfo {
         }
     }
 
-    public String GetDocId(Integer uid)
+    public String GetDocidUserPFByUID(Integer uid)
     {
 
         try {
-            DTI_users_mapinfo DTI_users_mapinfo = new DTI_users_mapinfo();
-            DTI_users_mapinfo.setUid(uid);
-            return mapperUsers_mapinfo.SelectMapinfo_docid(DTI_users_mapinfo);
+            DT_users_mapinfo dt_users_mapinfo = mapperUsers_mapinfo.SelectMapinfoByUID(uid);
+            return  dt_users_mapinfo.getDocid_userpf();
         }
         catch (Exception e)
         {
@@ -48,16 +47,27 @@ public class Services_users_mapinfo {
         }
     }
 
-    public String GetAppId(Integer uid)
+    public String GetDocidUserPFbyID(Integer id)
     {
         try {
-            DTI_users_mapinfo DTI_users_mapinfo = new DTI_users_mapinfo();
-            DTI_users_mapinfo.setUid(uid);
-            return mapperUsers_mapinfo.SelectMapinfo_appid(DTI_users_mapinfo);
+            DT_users_mapinfo dt_users_mapinfo = mapperUsers_mapinfo.SelectMapinfoByID(id);
+            return  dt_users_mapinfo.getDocid_userpf();
         }
         catch (Exception e)
         {
             return e.getMessage();
+        }
+    }
+
+    public boolean RemoveUserMapinfo(Integer id)
+    {
+        try {
+            mapperUsers_mapinfo.RemoveMapinfo(id);
+            return true;
+        }
+        catch (Exception e)
+        {
+            return false;
         }
     }
 
