@@ -1,7 +1,7 @@
 package ikcoder.services.services;
 
-import ikcoder.entities.coredb_basic.DT.DT_users_mapinfo;
-import ikcoder.entities.coredb_basic.DTI.DTI_users_mapinfo;
+import ikcoder.services.entities.DT.DT_users_mapinfo;
+import ikcoder.services.entities.DTI.DTI_users_mapinfo;
 import ikcoder.services.mappers.Mapper_users_mapinfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

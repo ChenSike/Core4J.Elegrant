@@ -1,9 +1,9 @@
 package ikcoder.services.controller;
 
-import ikcoder.entities.coredb_basic.DTO.DTO_CSVHeader;
-import ikcoder.entities.coredb_basic.DTO.DTO_common;
-import ikcoder.entities.coredb_basic.DTO.DTO_users;
 import ikcoder.services.docservices.DocServices_userpf;
+import ikcoder.services.entities.DTO.DTO_CSVHeader;
+import ikcoder.services.entities.DTO.DTO_common;
+import ikcoder.services.entities.DTO.DTO_users;
 import ikcoder.services.services.Services_common;
 import ikcoder.services.services.Services_messages;
 import ikcoder.services.services.Services_server;

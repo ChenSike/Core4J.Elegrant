@@ -1,7 +1,7 @@
 package ikcoder.services.mappers;
 
-import ikcoder.entities.coredb_basic.DTI.DTI_term;
-import ikcoder.entities.coredb_basic.DTO.DTO_term;
+import ikcoder.services.entities.DTI.DTI_term;
+import ikcoder.services.entities.DTO.DTO_term;
 
 import java.sql.Date;
 import java.util.HashMap;

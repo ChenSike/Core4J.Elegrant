@@ -1,8 +1,7 @@
 package ikcoder.services.services;
 
-import ikcoder.entities.coredb_basic.DT.DT_inst;
-import ikcoder.entities.coredb_basic.DTI.DTI_inst;
-import ikcoder.entities.coredb_basic.DTO.DTO_inst;
+import ikcoder.services.entities.DT.DT_inst;
+import ikcoder.services.entities.DTI.DTI_inst;
 import ikcoder.services.mappers.Mapper_inst;
 import ikcoder.services.mappers.Mapper_messages;
 import org.springframework.beans.factory.annotation.Autowired;

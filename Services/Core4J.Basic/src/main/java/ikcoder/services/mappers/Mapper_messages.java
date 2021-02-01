@@ -1,6 +1,7 @@
 package ikcoder.services.mappers;
 
-import ikcoder.entities.coredb_basic.DTO.DTO_message;
+
+import ikcoder.services.entities.DTO.DTO_message;
 
 public interface Mapper_messages {
 

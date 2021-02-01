@@ -3,13 +3,13 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="ikcoder.services.mappers.Mapper_term">
-    <select id="Select_StartYear" resultType="ikcoder.entities.coredb_basic.DTO.DTO_term">
+    <select id="Select_StartYear" resultType="ikcoder.services.entities.DTO.DTO_term">
         select * from term where start_year=#{start_year}
     </select>
-    <select id="Select_EndYear" resultType="ikcoder.entities.coredb_basic.DTO.DTO_term">
+    <select id="Select_EndYear" resultType="ikcoder.services.entities.DTO.DTO_term">
         select * from term where end_year=#{end_year}
     </select>
-    <select id="Select_InstCode" resultType="ikcoder.entities.coredb_basic.DTO.DTO_term">
+    <select id="Select_InstCode" resultType="ikcoder.services.entities.DTO.DTO_term">
         select * from term where inst_code=#{inst_code}
     </select>
     <delete id="Remove_Item">

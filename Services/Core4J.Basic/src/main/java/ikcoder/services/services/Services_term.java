@@ -1,7 +1,7 @@
 package ikcoder.services.services;
 
-import ikcoder.entities.coredb_basic.DTI.DTI_term;
-import ikcoder.entities.coredb_basic.DTO.DTO_term;
+import ikcoder.services.entities.DTI.DTI_term;
+import ikcoder.services.entities.DTO.DTO_term;
 import ikcoder.services.mappers.Mapper_term;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.expression.spel.ast.Literal;

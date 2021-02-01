@@ -1,7 +1,7 @@
 package ikcoder.services.mappers;
 
-import ikcoder.entities.coredb_basic.DT.DT_inst;
-import ikcoder.entities.coredb_basic.DTI.DTI_inst;
+import ikcoder.services.entities.DT.DT_inst;
+import ikcoder.services.entities.DTI.DTI_inst;
 
 public interface Mapper_inst {
 

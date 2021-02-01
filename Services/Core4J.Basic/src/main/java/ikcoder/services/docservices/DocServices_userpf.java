@@ -1,7 +1,5 @@
 package ikcoder.services.docservices;
 
-import ikcoder.entities.coredb_basic.DT.DT_users_mapinfo;
-import ikcoder.services.docs.documents.DOC_inst;
 import ikcoder.services.docs.documents.DOC_userpf;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;

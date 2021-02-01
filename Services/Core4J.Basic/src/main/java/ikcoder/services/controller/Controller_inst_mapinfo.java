@@ -1,7 +1,7 @@
 package ikcoder.services.controller;
 
-import ikcoder.entities.coredb_basic.DTI.DTI_inst_mapinfo;
-import ikcoder.entities.coredb_basic.DTO.DTO_common;
+import ikcoder.services.entities.DTI.DTI_inst_mapinfo;
+import ikcoder.services.entities.DTO.DTO_common;
 import ikcoder.services.services.Services_common;
 import ikcoder.services.services.Services_inst_mapinfo;
 import ikcoder.services.services.Services_messages;

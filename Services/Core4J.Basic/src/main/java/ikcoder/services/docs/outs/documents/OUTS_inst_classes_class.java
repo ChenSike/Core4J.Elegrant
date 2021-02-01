@@ -1,8 +1,8 @@
 package ikcoder.services.docs.outs.documents;
 
-import ikcoder.entities.coredb_basic.DTC.DTC_common;
 import ikcoder.services.docs.nodes.DOC_node_student;
 import ikcoder.services.docs.outs.nodes.OUTS_node_inst_classes_class;
+import ikcoder.services.entities.DTC.DTC_common;
 
 import java.util.List;
 

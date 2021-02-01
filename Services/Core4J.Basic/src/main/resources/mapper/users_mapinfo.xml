@@ -3,10 +3,10 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="ikcoder.services.mappers.Mapper$users_mapinfo">
-    <select id="SelectMapinfoByUID" resultType="ikcoder.entities.coredb_basic.DT.DT_users_mapinfo">
+    <select id="SelectMapinfoByUID" resultType="ikcoder.services.entities.DT.DT_users_mapinfo">
         select * from users_mapinfo where uid=#{uid}
     </select>
-    <select id="SelectMapinfoByID" resultType="ikcoder.entities.coredb_basic.DT.DT_users_mapinfo">
+    <select id="SelectMapinfoByID" resultType="ikcoder.services.entities.DT.DT_users_mapinfo">
         select appid from users_mapinfo where id=#{id}
     </select>
     <insert id="InsertMapinfo">

@@ -1,6 +1,6 @@
 package ikcoder.services.services;
 
-import ikcoder.entities.coredb_basic.DTO.DTO_message;
+import ikcoder.services.entities.DTO.DTO_message;
 import ikcoder.services.mappers.Mapper_messages;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

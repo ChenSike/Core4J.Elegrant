@@ -1,6 +1,6 @@
 package ikcoder.services.services;
 
-import ikcoder.entities.coredb_basic.DTO.DTO_users_basicinfo;
+import ikcoder.services.entities.DTO.DTO_users_basicinfo;
 import ikcoder.services.mappers.Mapper_users_basicinfo;
 import org.springframework.stereotype.Component;
 

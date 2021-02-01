@@ -1,6 +1,7 @@
 package ikcoder.services.mappers;
 
-import ikcoder.entities.coredb_basic.DTO.DTO_users_basicinfo;
+
+import ikcoder.services.entities.DTO.DTO_users_basicinfo;
 
 public interface Mapper_users_basicinfo {
 

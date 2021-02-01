@@ -1,8 +1,9 @@
 package ikcoder.services.services;
-import ikcoder.entities.coredb_basic.DTI.DTI_users;
-import ikcoder.entities.coredb_basic.DTI.DTI_users_chpwd;
-import ikcoder.entities.coredb_basic.DTO.DTO_users;
-import ikcoder.entities.coredb_basic.DTO.DTO_users_id;
+
+import ikcoder.services.entities.DTI.DTI_users;
+import ikcoder.services.entities.DTI.DTI_users_chpwd;
+import ikcoder.services.entities.DTO.DTO_users;
+import ikcoder.services.entities.DTO.DTO_users_id;
 import ikcoder.services.mappers.Mapper_messages;
 import ikcoder.services.mappers.Mapper_users;
 import org.springframework.beans.factory.annotation.Autowired;

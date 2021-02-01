@@ -1,6 +1,7 @@
 package ikcoder.services.mappers;
 
-import ikcoder.entities.coredb_basic.DTO.DTO_users_inst;
+
+import ikcoder.services.entities.DTO.DTO_users_inst;
 
 import java.util.List;
 

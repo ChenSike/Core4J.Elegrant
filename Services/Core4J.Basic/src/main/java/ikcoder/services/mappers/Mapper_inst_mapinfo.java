@@ -1,6 +1,6 @@
 package ikcoder.services.mappers;
 
-import ikcoder.entities.coredb_basic.DTO.DTO_inst_mapinfo;
+import ikcoder.services.entities.DTO.DTO_inst_mapinfo;
 
 public interface Mapper_inst_mapinfo {
 
