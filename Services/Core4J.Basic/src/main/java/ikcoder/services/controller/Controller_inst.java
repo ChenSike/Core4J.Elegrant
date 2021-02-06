@@ -2,6 +2,7 @@ package ikcoder.services.controller;
 
 import ikcoder.services.docs.documents.DOC_inst;
 import ikcoder.services.docs.nodes.DOC_node_class;
+import ikcoder.services.docs.nodes.DOC_node_student;
 import ikcoder.services.docs.outs.documents.OUTS_inst_classes_class;
 import ikcoder.services.docs.outs.documents.OUTS_inst_classes_matrix;
 import ikcoder.services.docs.outs.nodes.OUTS_node_inst_classes_class;
@@ -148,14 +149,27 @@ public class Controller_inst {
             OUTS_node_inst_classes_class newNodeItem = new OUTS_node_inst_classes_class();
             newNodeItem.setActive(tmp_Doc_node_class.getIsgoing());
             newNodeItem.setTitle(tmp_Doc_node_class.getName());
-            newNodeItem.setOwner(services_users_basicinfo.GetUserName(dt_inst.getId()));
-            newNodeItem.setCount_boys((int) tmp_Doc_node_class.getLstStudents().stream().filter((e) -> e.getGender() == "1").count());
-            newNodeItem.setCount_girls((int) tmp_Doc_node_class.getLstStudents().stream().filter((e) -> e.getGender() == "2").count());
+            newNodeItem.setOwner(services_users_basicinfo.GetUserName(tmp_Doc_node_class.getUid_owner()));
+            List<DOC_node_student> lstStudents=tmp_Doc_node_class.getLstStudents();
+            if(lstStudents!=null) {
+                newNodeItem.setCount_boys((int) lstStudents.stream().filter((e) -> e.getGender() == "1").count());
+                newNodeItem.setCount_girls((int) lstStudents.stream().filter((e) -> e.getGender() == "2").count());
+            }
+            else
+            {
+                newNodeItem.setCount_boys(0);
+                newNodeItem.setCount_girls(0);
+            }
             List<OUTS_node_inst_classes_class> lstClassesResult;
             if (outs_inst_classes_matrix.getClasses_matrix().containsKey(tmp_Doc_node_class.getStartyear())) {
                 lstClassesResult = outs_inst_classes_matrix.getClasses_matrix().get(tmp_Doc_node_class.getStartyear());
             } else {
                 lstClassesResult = new ArrayList<>();
+            }
+            if(!outs_inst_classes_matrix.getClasses_matrix().containsKey(tmp_Doc_node_class.getStartyear()))
+            {
+                List<OUTS_node_inst_classes_class> new_lstClasses = new ArrayList<>();
+                outs_inst_classes_matrix.getClasses_matrix().put(tmp_Doc_node_class.getStartyear(), new_lstClasses);
             }
             List<OUTS_node_inst_classes_class> tmp_lstClasses = outs_inst_classes_matrix.getClasses_matrix().get(tmp_Doc_node_class.getStartyear());
             tmp_lstClasses.add(newNodeItem);

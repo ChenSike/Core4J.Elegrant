@@ -6,7 +6,7 @@
     <select id="Select_inst_code" resultType="ikcoder.services.entities.DT.DT_inst">
         select * from inst where code=#{code}
     </select>
-    <select id="select_inst_id" resultType="ikcoder.services.entities.DT.DT_inst">
+    <select id="Select_inst_id" resultType="ikcoder.services.entities.DT.DT_inst">
         select * from inst where id=#{id}
     </select>
     <insert id="Insert_inst">

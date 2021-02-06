@@ -21,9 +21,9 @@ public class Services_users_inst {
         this._mapper_messages=mapper_messages;
     }
 
-    public List<DTO_users_inst> getUsersInstMap(Integer userid)
+    public DTO_users_inst getUsersInstMap(Integer userid)
     {
-        List<DTO_users_inst> result_users_inst=_mapper_users_inst.Select_userid(userid);
+        DTO_users_inst result_users_inst=_mapper_users_inst.Select_userid(userid);
         return result_users_inst;
     }
 

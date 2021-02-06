@@ -68,11 +68,12 @@ public class Controller_users {
             case 0:
                 return Services_common.newCommonResItem(_servicesMessages.GetMessage_code("4002"), "4002", false);
             case 1:
-                List<DTO_users_inst> resultUsersInst=this._services_users_inst.getUsersInstMap(dto_users.getId());
+                DTO_users_inst resultUsersInst=this._services_users_inst.getUsersInstMap(dto_users.getId());
                 String inst_code;
-                if(resultUsersInst.size()>0)
+                if(resultUsersInst!=null)
                 {
-                    inst_code = this._services_inst.GetFirstCode(resultUsersInst.get(0).getId());
+                    Integer users_inst_id = resultUsersInst.getInst_id();
+                    inst_code = this._services_inst.GetFirstCode(users_inst_id);
                 }
                 else
                 {

@@ -20,7 +20,13 @@ public class Services_users_basicinfo {
 
     public String GetUserName(Integer userid)
     {
-        return mapper_users_basicinfo.Select_users_basicinfo(userid).getName();
+        try {
+            return mapper_users_basicinfo.Select_users_basicinfo(userid).getName();
+        }
+        catch (Exception err)
+        {
+            return "";
+        }
     }
 
 }

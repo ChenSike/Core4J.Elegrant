@@ -1,9 +1,9 @@
 spring:
   datasource:
     username: root
-    password: 12345678
-    #url: jdbc:mysql://192.168.3.48:3306/coredb_basic?serverTimezone=UTC
-    url: jdbc:mysql://127.0.0.1:3306/coredb_basic?serverTimezone=UTC
+    password: "01070624"
+    url: jdbc:mysql://192.168.3.48:3306/coredb_basic?serverTimezone=UTC
+    #url: jdbc:mysql://127.0.0.1:3306/coredb_basic?serverTimezone=UTC
     driver-class-name: com.mysql.jdbc.Driver
     type: com.alibaba.druid.pool.DruidDataSource
   redis:

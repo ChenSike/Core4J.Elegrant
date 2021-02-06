@@ -7,6 +7,6 @@ import java.util.List;
 
 public interface Mapper_users_inst {
 
-    public List<DTO_users_inst> Select_userid(Integer userid);
+    public DTO_users_inst Select_userid(Integer userid);
 
 }
