@@ -27,7 +27,7 @@ public class Controller_user_mapinfo {
     public DTO_common NewUserMapInfo(@PathVariable(name = "uid") Integer uid)
     {
         services_users_mapinfo.NewMapInfo(uid);
-        return Services_common.newCommonResItem(services_messages.GetMessage_code("8001"), "8001", false);
+        return Services_common.newCommonResItem(services_messages.GetMessage_code("8001"), "8001", false,true);
     }
 
 }

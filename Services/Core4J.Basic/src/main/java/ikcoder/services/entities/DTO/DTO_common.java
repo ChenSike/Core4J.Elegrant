@@ -4,10 +4,19 @@ import ikcoder.services.entities.DTC.DTC_common;
 
 public class DTO_common {
 
+    Boolean IsSucceeded;
     Boolean IsExceptioned;
     String Code;
     String ReturnType;
     DTC_common Content;
+
+    public Boolean getSucceeded() {
+        return IsSucceeded;
+    }
+
+    public void setSucceeded(Boolean succeeded) {
+        IsSucceeded = succeeded;
+    }
 
     public Boolean getExceptioned() {
         return IsExceptioned;

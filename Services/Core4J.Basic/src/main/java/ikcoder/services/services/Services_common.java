@@ -46,12 +46,13 @@ public class Services_common {
         Services_common._httpServletResponse = _httpServletResponse;
     }
 
-    public static DTO_common newCommonResItem(DTC_common contentObj, String code, Boolean isExceptioned)
+    public static DTO_common newCommonResItem(DTC_common contentObj, String code, Boolean isExceptioned,Boolean isSucceeded)
     {
         DTO_common DTO_common = new DTO_common();
         DTO_common.setExceptioned(isExceptioned);
         DTO_common.setCode(code);
         DTO_common.setContent(contentObj);
+        DTO_common.setSucceeded(isSucceeded);
         return DTO_common;
     }
 
@@ -121,13 +122,14 @@ public class Services_common {
         }
     }
 
-    public static DTO_common newCommonResStringItem(String message, String code, Boolean isExceptioned)
+    public static DTO_common newCommonResStringItem(String message, String code, Boolean isExceptioned,Boolean isSucceeded)
     {
         DTO_common_message dto_common_message = new DTO_common_message();
         dto_common_message.setMessage(message);
         DTO_common DTO_common = new DTO_common();
         DTO_common.setExceptioned(isExceptioned);
         DTO_common.setCode(code);
+        DTO_common.setSucceeded(isSucceeded);
         DTO_common.setContent(dto_common_message);
         return DTO_common;
     }

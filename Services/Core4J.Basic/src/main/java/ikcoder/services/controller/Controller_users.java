@@ -51,10 +51,10 @@ public class Controller_users {
     {
         if(_services_users.NewUser(newUser)) {
             this._servicesUsers_mapinfo.NewMapInfo(_services_users.SelectUserId(newUser).getId());
-            return Services_common.newCommonResItem(_servicesMessages.GetMessage_code("8001"), "8001", false);
+            return Services_common.newCommonResItem(_servicesMessages.GetMessage_code("8001"), "8001", false,true);
         }
         else {
-            return Services_common.newCommonResItem(_servicesMessages.GetMessage_code("4001"), "4001", false);
+            return Services_common.newCommonResItem(_servicesMessages.GetMessage_code("4001"), "4001", false,false);
         }
     }
 
@@ -66,7 +66,7 @@ public class Controller_users {
         DTO_users dto_users = _services_users.GetUser(DTI_users);
         switch (returnCode) {
             case 0:
-                return Services_common.newCommonResItem(_servicesMessages.GetMessage_code("4002"), "4002", false);
+                return Services_common.newCommonResItem(_servicesMessages.GetMessage_code("4002"), "4002", false,false);
             case 1:
                 DTO_users_inst resultUsersInst=this._services_users_inst.getUsersInstMap(dto_users.getId());
                 String inst_code;
@@ -77,7 +77,7 @@ public class Controller_users {
                 }
                 else
                 {
-                    return Services_common.newCommonResItem( _servicesMessages.GetMessage_code("4003"), "4003", false);
+                    return Services_common.newCommonResItem( _servicesMessages.GetMessage_code("4003"), "4003", false,false);
                 }
                 HttpSession httpSession = this._httpServletRequest.getSession();
                 UUID uuid = UUID.randomUUID();
@@ -86,11 +86,11 @@ public class Controller_users {
                 dto_users.setToken(uuid.toString());
                 this._httpServletResponse.addHeader("token", uuid.toString());
                 Services_common.writeUserIntoRedis(dto_users);
-                return Services_common.newCommonResItem(_servicesMessages.GetMessage_code("8002"), "8002", false);
+                return Services_common.newCommonResItem(_servicesMessages.GetMessage_code("8002"), "8002", false,true);
             case 2:
-                return Services_common.newCommonResItem( _servicesMessages.GetMessage_code("4003"), "4003", false);
+                return Services_common.newCommonResItem( _servicesMessages.GetMessage_code("4003"), "4003", false,false);
             case 3:
-                return Services_common.newCommonResItem(_servicesMessages.GetMessage_code("4004"), "4004", false);
+                return Services_common.newCommonResItem(_servicesMessages.GetMessage_code("4004"), "4004", false,false);
         }
         return dto_common;
     }
@@ -100,11 +100,11 @@ public class Controller_users {
     public DTO_common ChangePwd(@RequestBody DTI_users_chpwd dti_users_chpwd)
     {
         if(dti_users_chpwd==null)
-            return Services_common.newCommonResItem(_servicesMessages.GetMessage_code("4002"), "4002", false);
+            return Services_common.newCommonResItem(_servicesMessages.GetMessage_code("4002"), "4002", false,true);
         else
         {
             this._services_users.ChangePwd(dti_users_chpwd);
-            return Services_common.newCommonResItem(_servicesMessages.GetMessage_code("8005"), "8005", false);
+            return Services_common.newCommonResItem(_servicesMessages.GetMessage_code("8005"), "8005", false,false);
         }
     }
 
@@ -114,7 +114,7 @@ public class Controller_users {
     {
         DTI_users dti_users = new DTI_users();
         dti_users.setUid(username);
-        return Services_common.newCommonResItem(_services_users.SelectUserId(dti_users), "200", false);
+        return Services_common.newCommonResItem(_services_users.SelectUserId(dti_users), "200", false,true);
     }
 
     @ResponseBody
@@ -123,7 +123,7 @@ public class Controller_users {
         HttpSession httpSession = this._httpServletRequest.getSession();
         if(this._httpServletRequest.getHeader("token")==null)
         {
-            return Services_common.newCommonResItem(_servicesMessages.GetMessage_code("4008"), "4008", false);
+            return Services_common.newCommonResItem(_servicesMessages.GetMessage_code("4008"), "4008", false,false);
         }
         String token = this._httpServletRequest.getHeader("token");
         String strJson = this._redisTemplate.opsForValue().get(token);
@@ -132,11 +132,11 @@ public class Controller_users {
             DTO_users dto_users = JSON.toJavaObject(jsonObject,DTO_users.class);
             DTO_users_id dto_users_id = new DTO_users_id();
             dto_users_id.setId(dto_users.getId());
-            return Services_common.newCommonResItem(dto_users_id, "8002", false);
+            return Services_common.newCommonResItem(dto_users_id, "8002", false,true);
         }
         else
         {
-            return Services_common.newCommonResItem(_servicesMessages.GetMessage_code("4006"), "4006", false);
+            return Services_common.newCommonResItem(_servicesMessages.GetMessage_code("4006"), "4006", false,false);
         }
     }
 
@@ -146,16 +146,16 @@ public class Controller_users {
         HttpSession httpSession = this._httpServletRequest.getSession();
         if(this._httpServletRequest.getHeader("token")==null)
         {
-            return Services_common.newCommonResItem(_servicesMessages.GetMessage_code("4008"), "4008", false);
+            return Services_common.newCommonResItem(_servicesMessages.GetMessage_code("4008"), "4008", false,false);
         }
         String token = this._httpServletRequest.getHeader("token");
         String strJson = this._redisTemplate.opsForValue().get(token);
         if(!strJson.isBlank()) {
-            return Services_common.newCommonResItem(_servicesMessages.GetMessage_code("8004"), "8004", false);
+            return Services_common.newCommonResItem(_servicesMessages.GetMessage_code("8004"), "8004", false,true);
         }
         else
         {
-            return Services_common.newCommonResItem(_servicesMessages.GetMessage_code("4006"), "4006", false);
+            return Services_common.newCommonResItem(_servicesMessages.GetMessage_code("4006"), "4006", false,false);
         }
     }
 
@@ -165,17 +165,15 @@ public class Controller_users {
     @GetMapping("/users/logout")
     public DTO_common Logout()
     {
-        HttpSession httpSession = this._httpServletRequest.getSession();
-        String sessionID = httpSession.getId();
-        if(this._redisTemplate.opsForValue().get(sessionID)==sessionID)
+        String token = this._httpServletRequest.getHeader("token");
+        if(!token.isEmpty())
         {
-            httpSession.removeAttribute(Conf_symbol.symbol_token);
-            this._redisTemplate.delete(sessionID);
-            return Services_common.newCommonResItem(_servicesMessages.GetMessage_code("8003"), "8003", false);
+            this._redisTemplate.delete(token);
+            return Services_common.newCommonResItem(_servicesMessages.GetMessage_code("8003"), "8003", false,true);
         }
         else
         {
-            return Services_common.newCommonResItem(_servicesMessages.GetMessage_code("4005"), "4005", false);
+            return Services_common.newCommonResItem(_servicesMessages.GetMessage_code("4005"), "4005", false,false);
         }
     }
 

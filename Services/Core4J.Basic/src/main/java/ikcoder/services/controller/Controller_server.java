@@ -47,9 +47,9 @@ public class Controller_server {
         String filePath = Services_common.getTmpPoolPath();
         try {
             multipartFile.transferTo(new File(filePath+"\\"+fileName));
-            return Services_common.newCommonResItem(services_messages.GetMessage_code("8001"), "8001", false);
+            return Services_common.newCommonResItem(services_messages.GetMessage_code("8001"), "8001", false,true);
         } catch (Exception e) {
-            return Services_common.newCommonResItem(services_messages.GetMessage_code("4001"), "4001", true);
+            return Services_common.newCommonResItem(services_messages.GetMessage_code("4001"), "4001", true,false);
         }
     }
 
@@ -60,9 +60,9 @@ public class Controller_server {
         DTO_users dto_users = Services_common.getUserFromRedis();
         String currentFile = docServices_userpf.GetCurrentUploadFileName(dto_users.getUid());
         if(!currentFile.isEmpty())
-            return Services_common.newCommonResStringItem(currentFile, "8001", false);
+            return Services_common.newCommonResStringItem(currentFile, "8001", false,true);
         else
-            return Services_common.newCommonResItem(services_messages.GetMessage_code("4001"), "4001", true);
+            return Services_common.newCommonResItem(services_messages.GetMessage_code("4001"), "4001", true,false);
     }
 
     @GetMapping("/server/upload/clear")
@@ -72,11 +72,11 @@ public class Controller_server {
         try {
             DTO_users dto_users = Services_common.getUserFromRedis();
             docServices_userpf.SetClearUploadFile(dto_users.getUid());
-            return Services_common.newCommonResItem(services_messages.GetMessage_code("8001"), "8001", false);
+            return Services_common.newCommonResItem(services_messages.GetMessage_code("8001"), "8001", false,true);
         }
         catch (Exception err)
         {
-            return Services_common.newCommonResItem(services_messages.GetMessage_code("4001"), "4001", true);
+            return Services_common.newCommonResItem(services_messages.GetMessage_code("4001"), "4001", true,false);
         }
     }
 
@@ -89,11 +89,11 @@ public class Controller_server {
             DTO_CSVHeader dto_csvHeader = new DTO_CSVHeader();
             String filename = docServices_userpf.GetCurrentUploadFileName(dto_users.getUid());
             dto_csvHeader.setMapCSVHeader(Services_common.GetCVSHeaderMap(Services_common.getTmpPoolPath() + "\\" + filename));
-            return Services_common.newCommonResItem(dto_csvHeader, "8001", false);
+            return Services_common.newCommonResItem(dto_csvHeader, "8001", false,true);
         }
         catch (Exception err)
         {
-            return Services_common.newCommonResItem(services_messages.GetMessage_code("4001"), "4001", true);
+            return Services_common.newCommonResItem(services_messages.GetMessage_code("4001"), "4001", true,false);
         }
     }
 

@@ -32,7 +32,7 @@ public class Controller_inst_mapinfo {
 
         UUID uuid = UUID.randomUUID();
         services_inst_mapinfo.NewItem(dti_inst_mapinfo.getInst_code(),uuid.toString());
-        return Services_common.newCommonResStringItem(uuid.toString(), "8001", false);
+        return Services_common.newCommonResStringItem(uuid.toString(), "8001", false,true);
     }
 
 }

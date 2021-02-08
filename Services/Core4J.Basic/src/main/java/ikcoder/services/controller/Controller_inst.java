@@ -64,17 +64,17 @@ public class Controller_inst {
             UUID uuid = UUID.randomUUID();
             if(services_inst_mapinfo.NewItem(dti_inst.getCode(),uuid.toString())) {
                 if (docServices_inst.NewInst(dti_inst.getCode(), uuid.toString())) {
-                    return Services_common.newCommonResItem(services_messages.GetMessage_code("8001"), "8001", false);
+                    return Services_common.newCommonResItem(services_messages.GetMessage_code("8001"), "8001", false,true);
                 } else {
-                    return Services_common.newCommonResItem(services_messages.GetMessage_code("4001"), "4001", true);
+                    return Services_common.newCommonResItem(services_messages.GetMessage_code("4001"), "4001", false,false);
                 }
             }
             else
-                return Services_common.newCommonResItem(services_messages.GetMessage_code("4001"), "4001", true);
+                return Services_common.newCommonResItem(services_messages.GetMessage_code("4001"), "4001", false,false);
         }
         else
         {
-            return Services_common.newCommonResItem(services_messages.GetMessage_code("4001"), "4001", true);
+            return Services_common.newCommonResItem(services_messages.GetMessage_code("4001"), "4001", false,false);
         }
     }
 
@@ -85,14 +85,14 @@ public class Controller_inst {
             UUID uuid = UUID.randomUUID();
             services_inst_mapinfo.NewItem(inst_code, uuid.toString());
             if (docServices_inst.NewInst(inst_code, uuid.toString())) {
-                return Services_common.newCommonResItem(services_messages.GetMessage_code("8001"), "8001", false);
+                return Services_common.newCommonResItem(services_messages.GetMessage_code("8001"), "8001", false,true);
             } else {
-                return Services_common.newCommonResItem(services_messages.GetMessage_code("4001"), "4001", true);
+                return Services_common.newCommonResItem(services_messages.GetMessage_code("4001"), "4001", false,false);
             }
         }
         else
         {
-            return Services_common.newCommonResItem(services_messages.GetMessage_code("4001"), "4001", true);
+            return Services_common.newCommonResItem(services_messages.GetMessage_code("4001"), "4001", false,false);
         }
     }
 
@@ -106,9 +106,9 @@ public class Controller_inst {
         DOC_inst doc_inst = docServices_inst.GetInstDocument(dto_inst_mapinfo.getDocid_basic());
         Integer uid_owner = dto_users.getId();
         if (docServices_inst.NewClasses(doc_inst.getDocid_inst(), dti_class.getName(), uid_owner, dti_class.getStartYear()))
-            return Services_common.newCommonResItem(services_messages.GetMessage_code("8001"), "8001", false);
+            return Services_common.newCommonResItem(services_messages.GetMessage_code("8001"), "8001", false,true);
         else
-            return Services_common.newCommonResItem(services_messages.GetMessage_code("4001"), "4001", true);
+            return Services_common.newCommonResItem(services_messages.GetMessage_code("4001"), "4001", true,false);
     }
 
     @GetMapping("/inst/class/student/number/auto/{classid}")
@@ -124,11 +124,11 @@ public class Controller_inst {
             Stream<DOC_node_class> filter_Doc_node_class = stream_Doc_node_class.filter((e) -> e.getUid_owner() == dto_users.getId() && e.getClassid() == classid);
             List<DOC_node_class> lst_Doc_node_class = filter_Doc_node_class.collect(Collectors.toList());
             Integer sizeValue = lst_Doc_node_class.get(0).getLstStudents().size();
-            return Services_common.newCommonResStringItem(sizeValue.toString(), "8001", false);
+            return Services_common.newCommonResStringItem(sizeValue.toString(), "8001", false,true);
         }
         catch (Exception err)
         {
-            return Services_common.newCommonResStringItem(err.getMessage(), "4001", true);
+            return Services_common.newCommonResStringItem(err.getMessage(), "4001", true,false);
         }
     }
 
@@ -193,9 +193,9 @@ public class Controller_inst {
             Stream<DOC_node_class> filter_Doc_node_class = stream_Doc_node_class.filter((e) -> e.getUid_owner() == dto_users.getId());
             List<DOC_node_class> lst_Doc_node_class = filter_Doc_node_class.collect(Collectors.toList());
             doc_inst.setLstClass(lst_Doc_node_class);
-            return Services_common.newCommonResItem(doc_inst, "8001", false);
+            return Services_common.newCommonResItem(doc_inst, "8001", false,true);
         } catch (Exception err) {
-            return Services_common.newCommonResStringItem(err.getMessage(), "4001", true);
+            return Services_common.newCommonResStringItem(err.getMessage(), "4001", true,false);
         }
     }
 
@@ -219,11 +219,11 @@ public class Controller_inst {
                 newItem.setName(tmp_doc_node_class.getName());
                 dto_inst_class.getLstClass().add(newItem);
             }
-            return Services_common.newCommonResItem(dto_inst_class, "8001", false);
+            return Services_common.newCommonResItem(dto_inst_class, "8001", false,true);
         }
         catch (Exception err)
         {
-            return Services_common.newCommonResStringItem(err.getMessage(), "4001", true);
+            return Services_common.newCommonResStringItem(err.getMessage(), "4001", true,false);
         }
     }
 
@@ -250,9 +250,9 @@ public class Controller_inst {
             newNodeItem.setCount_girls((int) lst_Doc_node_class.get(0).getLstStudents().stream().filter((e) -> e.getGender() == "2").count());
             outs_inst_classes_class.setOuts_node_inst_classes_class(newNodeItem);
             outs_inst_classes_class.setLstStudents(lst_Doc_node_class.get(0).getLstStudents());
-            return Services_common.newCommonResItem(outs_inst_classes_class, "8001", false);
+            return Services_common.newCommonResItem(outs_inst_classes_class, "8001", false,true);
         } catch (Exception err) {
-            return Services_common.newCommonResStringItem(err.getMessage(), "4001", true);
+            return Services_common.newCommonResStringItem(err.getMessage(), "4001", true,false);
         }
     }
 
@@ -268,11 +268,11 @@ public class Controller_inst {
             DTO_inst_mapinfo dto_inst_mapinfo = services_inst_mapinfo.SelectItemByCode(inst_code);
             DOC_inst doc_inst = docServices_inst.GetInstDocument(dto_inst_mapinfo.getDocid_basic());
             docServices_inst.NewStudent(doc_inst.getDocid_inst(), classid, dti_inst_student.getNumber(), dti_inst_student.getName(), dti_inst_student.getGender(), dti_inst_student.getNmae_father(), dti_inst_student.getName_mother(), dti_inst_student.getNumber_tel());
-            return Services_common.newCommonResItem(services_messages.GetMessage_code("8001"), "8001", false);
+            return Services_common.newCommonResItem(services_messages.GetMessage_code("8001"), "8001", false,true);
         }
         catch (Exception err)
         {
-            return Services_common.newCommonResItem(services_messages.GetMessage_code("4001"), "4001", true);
+            return Services_common.newCommonResItem(services_messages.GetMessage_code("4001"), "4001", true,false);
         }
 
     }
