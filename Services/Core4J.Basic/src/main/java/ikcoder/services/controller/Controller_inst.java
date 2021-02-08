@@ -100,9 +100,12 @@ public class Controller_inst {
     @PostMapping("/inst/class")
     @ResponseBody
     public DTO_common NewInstDoc(@RequestBody DTI_class dti_class) {
-       DTO_users dto_users = Services_common.getUserFromRedis();
-       Integer uid_owner = dto_users.getId();
-        if(docServices_inst.NewClasses(dti_class.getDocid_inst(),dti_class.getName(),uid_owner,dti_class.getStartYear()))
+        DTO_users dto_users = Services_common.getUserFromRedis();
+        String inst_code = dto_users.getCode();
+        DTO_inst_mapinfo dto_inst_mapinfo = services_inst_mapinfo.SelectItemByCode(inst_code);
+        DOC_inst doc_inst = docServices_inst.GetInstDocument(dto_inst_mapinfo.getDocid_basic());
+        Integer uid_owner = dto_users.getId();
+        if (docServices_inst.NewClasses(doc_inst.getDocid_inst(), dti_class.getName(), uid_owner, dti_class.getStartYear()))
             return Services_common.newCommonResItem(services_messages.GetMessage_code("8001"), "8001", false);
         else
             return Services_common.newCommonResItem(services_messages.GetMessage_code("4001"), "4001", true);
