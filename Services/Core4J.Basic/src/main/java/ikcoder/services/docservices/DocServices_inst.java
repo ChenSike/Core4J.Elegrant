@@ -65,6 +65,24 @@ public class DocServices_inst extends DocServices_base {
             return false;
     }
 
+    public boolean RemoveClass(String docid_inst,String classid)
+    {
+        try {
+            Query query = new Query(Criteria.where("docid_inst").is(docid_inst));
+            DOC_inst doc_inst = (DOC_inst) mongoTemplate.findOne(query, DOC_inst.class);
+            DOC_node_class doc_node_class = doc_inst.getClass(classid);
+            doc_inst.getLstClass().remove(doc_node_class);
+            Update update = new Update();
+            update.set("lstClass", doc_inst.getLstClass());
+            mongoTemplate.updateFirst(query, update, DOC_inst.class);
+            return true;
+        }
+        catch (Exception err)
+        {
+            return false;
+        }
+    }
+
     public List<DOC_node_student> ListStudents(DOC_inst doc_inst,String docid_inst,String class_id) {
         List<DOC_node_student> lstStudent = new ArrayList<>();
         if (doc_inst != null) {
