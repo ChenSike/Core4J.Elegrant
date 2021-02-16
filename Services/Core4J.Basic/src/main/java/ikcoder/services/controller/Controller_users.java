@@ -168,8 +168,13 @@ public class Controller_users {
         String token = this._httpServletRequest.getHeader("token");
         if(!token.isEmpty())
         {
-            this._redisTemplate.delete(token);
-            return Services_common.newCommonResItem(_servicesMessages.GetMessage_code("8003"), "8003", false,true);
+            if(this._redisTemplate.delete(token)) {
+                return Services_common.newCommonResItem(_servicesMessages.GetMessage_code("8003"), "8003", false, true);
+            }
+            else
+            {
+                return Services_common.newCommonResItem(_servicesMessages.GetMessage_code("4005"), "4005", false,false);
+            }
         }
         else
         {

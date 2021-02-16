@@ -111,75 +111,10 @@ public class Controller_inst {
             return Services_common.newCommonResItem(services_messages.GetMessage_code("4001"), "4001", true,false);
     }
 
-    @GetMapping("/inst/class/student/number/auto/{classid}")
-    @ResponseBody
-    public DTO_common GetAutoNumber(@PathVariable(name="classid") String classid) {
-        try {
-
-            DTO_users dto_users = Services_common.getUserFromRedis();
-            String inst_code = dto_users.getCode();
-            DTO_inst_mapinfo dto_inst_mapinfo = services_inst_mapinfo.SelectItemByCode(inst_code);
-            DOC_inst doc_inst = docServices_inst.GetInstDocument(dto_inst_mapinfo.getDocid_basic());
-            Stream<DOC_node_class> stream_Doc_node_class = doc_inst.getLstClass().stream();
-            Stream<DOC_node_class> filter_Doc_node_class = stream_Doc_node_class.filter((e) -> e.getUid_owner() == dto_users.getId() && e.getClassid() == classid);
-            List<DOC_node_class> lst_Doc_node_class = filter_Doc_node_class.collect(Collectors.toList());
-            Integer sizeValue = lst_Doc_node_class.get(0).getLstStudents().size();
-            return Services_common.newCommonResStringItem(sizeValue.toString(), "8001", false,true);
-        }
-        catch (Exception err)
-        {
-            return Services_common.newCommonResStringItem(err.getMessage(), "4001", true,false);
-        }
-    }
 
 
-    @GetMapping("/inst/matrix")
-    @ResponseBody
-    public OUTS_inst_classes_matrix GetMatrix()
-    {
-        DTO_users dto_users = Services_common.getUserFromRedis();
-        String inst_code = dto_users.getCode();
-        DTO_inst_mapinfo dto_inst_mapinfo = services_inst_mapinfo.SelectItemByCode(inst_code);
-        DOC_inst doc_inst = docServices_inst.GetInstDocument(dto_inst_mapinfo.getDocid_basic());
-        DT_inst dt_inst = services_inst.SelectInst(inst_code);
-        Stream<DOC_node_class> stream_Doc_node_class = doc_inst.getLstClass().stream();
-        OUTS_inst_classes_matrix outs_inst_classes_matrix=new OUTS_inst_classes_matrix();
-        outs_inst_classes_matrix.setInst_code(inst_code);
-        outs_inst_classes_matrix.setInst_name(dt_inst.getName());
-        outs_inst_classes_matrix.setUid(dto_users.getUid());
-        List<DOC_node_class> lstClasses=stream_Doc_node_class.collect(Collectors.toList());
-        for(DOC_node_class tmp_Doc_node_class : lstClasses) {
-            OUTS_node_inst_classes_class newNodeItem = new OUTS_node_inst_classes_class();
-            newNodeItem.setActive(tmp_Doc_node_class.getIsgoing());
-            newNodeItem.setTitle(tmp_Doc_node_class.getName());
-            newNodeItem.setOwner(services_users_basicinfo.GetUserName(tmp_Doc_node_class.getUid_owner()));
-            List<DOC_node_student> lstStudents=tmp_Doc_node_class.getLstStudents();
-            if(lstStudents!=null) {
-                newNodeItem.setCount_boys((int) lstStudents.stream().filter((e) -> e.getGender() == "1").count());
-                newNodeItem.setCount_girls((int) lstStudents.stream().filter((e) -> e.getGender() == "2").count());
-            }
-            else
-            {
-                newNodeItem.setCount_boys(0);
-                newNodeItem.setCount_girls(0);
-            }
-            List<OUTS_node_inst_classes_class> lstClassesResult;
-            if (outs_inst_classes_matrix.getClasses_matrix().containsKey(tmp_Doc_node_class.getStartyear())) {
-                lstClassesResult = outs_inst_classes_matrix.getClasses_matrix().get(tmp_Doc_node_class.getStartyear());
-            } else {
-                lstClassesResult = new ArrayList<>();
-            }
-            if(!outs_inst_classes_matrix.getClasses_matrix().containsKey(tmp_Doc_node_class.getStartyear()))
-            {
-                List<OUTS_node_inst_classes_class> new_lstClasses = new ArrayList<>();
-                outs_inst_classes_matrix.getClasses_matrix().put(tmp_Doc_node_class.getStartyear(), new_lstClasses);
-            }
-            List<OUTS_node_inst_classes_class> tmp_lstClasses = outs_inst_classes_matrix.getClasses_matrix().get(tmp_Doc_node_class.getStartyear());
-            tmp_lstClasses.add(newNodeItem);
-            outs_inst_classes_matrix.getClasses_matrix().put(tmp_Doc_node_class.getStartyear().toString(), tmp_lstClasses);
-        }
-        return outs_inst_classes_matrix;
-    }
+
+
 
     @GetMapping("/inst/class/list")
     @ResponseBody
@@ -237,20 +172,30 @@ public class Controller_inst {
             DTO_inst_mapinfo dto_inst_mapinfo = services_inst_mapinfo.SelectItemByCode(inst_code);
             DOC_inst doc_inst = docServices_inst.GetInstDocument(dto_inst_mapinfo.getDocid_basic());
             Stream<DOC_node_class> stream_Doc_node_class = doc_inst.getLstClass().stream();
-            Stream<DOC_node_class> filter_Doc_node_class = stream_Doc_node_class.filter((e) -> e.getClassid() == classid);
+            Stream<DOC_node_class> filter_Doc_node_class = stream_Doc_node_class.filter((e) -> e.getClassid().equals(classid));
             List<DOC_node_class> lst_Doc_node_class = filter_Doc_node_class.collect(Collectors.toList());
-            OUTS_inst_classes_class outs_inst_classes_class = new OUTS_inst_classes_class();
-            outs_inst_classes_class.setInst_code(inst_code);
-            outs_inst_classes_class.setInst_name(doc_inst.getClass(classid).getName());
-            OUTS_node_inst_classes_class newNodeItem = new OUTS_node_inst_classes_class();
-            newNodeItem.setActive(lst_Doc_node_class.get(0).getIsgoing());
-            newNodeItem.setTitle(lst_Doc_node_class.get(0).getName());
-            newNodeItem.setOwner(services_users_basicinfo.GetUserName(dto_users.getId()));
-            newNodeItem.setCount_boys((int) lst_Doc_node_class.get(0).getLstStudents().stream().filter((e) -> e.getGender() == "1").count());
-            newNodeItem.setCount_girls((int) lst_Doc_node_class.get(0).getLstStudents().stream().filter((e) -> e.getGender() == "2").count());
-            outs_inst_classes_class.setOuts_node_inst_classes_class(newNodeItem);
-            outs_inst_classes_class.setLstStudents(lst_Doc_node_class.get(0).getLstStudents());
-            return Services_common.newCommonResItem(outs_inst_classes_class, "8001", false,true);
+            if(lst_Doc_node_class!=null && lst_Doc_node_class.size()>0) {
+                OUTS_inst_classes_class outs_inst_classes_class = new OUTS_inst_classes_class();
+                outs_inst_classes_class.setInst_code(inst_code);
+                outs_inst_classes_class.setInst_name(doc_inst.getClass(classid).getName());
+                OUTS_node_inst_classes_class newNodeItem = new OUTS_node_inst_classes_class();
+                newNodeItem.setActive(lst_Doc_node_class.get(0).getIsgoing());
+                newNodeItem.setTitle(lst_Doc_node_class.get(0).getName());
+                newNodeItem.setOwner(services_users_basicinfo.GetUserName(dto_users.getId()));
+                List<DOC_node_student> lstStudents = lst_Doc_node_class.get(0).getLstStudents();
+                if(lstStudents!=null)
+                {
+                    newNodeItem.setCount_boys((int) lst_Doc_node_class.get(0).getLstStudents().stream().filter((e) -> e.getGender() == "1").count());
+                    newNodeItem.setCount_girls((int) lst_Doc_node_class.get(0).getLstStudents().stream().filter((e) -> e.getGender() == "2").count());
+                    outs_inst_classes_class.setOuts_node_inst_classes_class(newNodeItem);
+                    outs_inst_classes_class.setLstStudents(lstStudents);
+                }
+                return Services_common.newCommonResItem(outs_inst_classes_class, "8001", false, true);
+            }
+            else
+            {
+                return Services_common.newCommonResItem(services_messages.GetMessage_code("4001"), "4001", false,false);
+            }
         } catch (Exception err) {
             return Services_common.newCommonResStringItem(err.getMessage(), "4001", true,false);
         }
@@ -258,24 +203,7 @@ public class Controller_inst {
 
 
 
-    @PostMapping("/inst/class/{classid}/student")
-    @ResponseBody
-    public DTO_common NewStudent(@PathVariable(name="classid") String classid, @RequestBody DTI_inst_student dti_inst_student)
-    {
-        try {
-            DTO_users dto_users = Services_common.getUserFromRedis();
-            String inst_code = dto_users.getCode();
-            DTO_inst_mapinfo dto_inst_mapinfo = services_inst_mapinfo.SelectItemByCode(inst_code);
-            DOC_inst doc_inst = docServices_inst.GetInstDocument(dto_inst_mapinfo.getDocid_basic());
-            docServices_inst.NewStudent(doc_inst.getDocid_inst(), classid, dti_inst_student.getNumber(), dti_inst_student.getName(), dti_inst_student.getGender(), dti_inst_student.getNmae_father(), dti_inst_student.getName_mother(), dti_inst_student.getNumber_tel());
-            return Services_common.newCommonResItem(services_messages.GetMessage_code("8001"), "8001", false,true);
-        }
-        catch (Exception err)
-        {
-            return Services_common.newCommonResItem(services_messages.GetMessage_code("4001"), "4001", true,false);
-        }
 
-    }
 
     /*
     @PostMapping("/inst/class/{classid}/student/import")

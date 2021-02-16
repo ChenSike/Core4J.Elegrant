@@ -178,6 +178,8 @@ public class Services_common {
         return Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
     }
 
+    public static String getCurrentDate(){return Calendar.getInstance().get(Calendar.YEAR)+"-"+(Calendar.getInstance().get(Calendar.MONTH)+1)+"-"+Calendar.getInstance().get(Calendar.DAY_OF_MONTH);}
+
     public static Date getCurrentDT()
     {
         return Calendar.getInstance().getTime();

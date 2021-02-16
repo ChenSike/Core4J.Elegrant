@@ -6,7 +6,7 @@ public class DOC_node_student {
     String id;
     String name;
     String gender;
-    String nmae_father;
+    String name_father;
     String name_mother;
     String number_tel;
     String docid_examscore;
@@ -46,12 +46,12 @@ public class DOC_node_student {
         this.gender = gender;
     }
 
-    public String getNmae_father() {
-        return nmae_father;
+    public String getName_father() {
+        return name_father;
     }
 
-    public void setNmae_father(String nmae_father) {
-        this.nmae_father = nmae_father;
+    public void setName_father(String name_father) {
+        this.name_father = name_father;
     }
 
     public String getName_mother() {

@@ -6,6 +6,15 @@ public class DTI_inst_student_import_rmap {
 
     Map<String,String> RMap_name;
     Map<Integer,Integer> RMap_index;
+    String classid;
+
+    public String getClassid() {
+        return classid;
+    }
+
+    public void setClassid(String classid) {
+        this.classid = classid;
+    }
 
     public Map<String, String> getRMap_name() {
         return RMap_name;
