@@ -5,10 +5,7 @@ import com.alibaba.fastjson.JSONObject;
 import ikcoder.services.conf.*;
 import ikcoder.services.entities.DTI.DTI_users;
 import ikcoder.services.entities.DTI.DTI_users_chpwd;
-import ikcoder.services.entities.DTO.DTO_common;
-import ikcoder.services.entities.DTO.DTO_users;
-import ikcoder.services.entities.DTO.DTO_users_id;
-import ikcoder.services.entities.DTO.DTO_users_inst;
+import ikcoder.services.entities.DTO.*;
 import ikcoder.services.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
@@ -17,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
@@ -183,10 +181,27 @@ public class Controller_users {
     }
 
     @ResponseBody
-    @GetMapping("/users/all")
+    @GetMapping("/users/list/all")
     public List<DTO_users> SelectAllUsers() {
         List<DTO_users> usersList = _services_users.GetUsers();
         return usersList;
+    }
+
+    @GetMapping("/users/list/currentuser")
+    @ResponseBody
+    public List<DTO_users> SelectCurrentListUsers()
+    {
+        DTO_users dto_users = Services_common.getUserFromRedis();
+        String inst_code = dto_users.getCode();
+        Integer inst_id = _services_inst.SelectInst(inst_code).getId();
+        List<DTO_users_inst> lstUsersInst = _services_users_inst.getCurrentUsersInstMap(inst_id);
+        List<DTO_users> lstResult = new ArrayList<>();
+        for(DTO_users_inst dto_users_inst:lstUsersInst) {
+            Integer tmp_user_id = dto_users_inst.getUser_id();
+            DTO_users newItem = new DTO_users();
+            newItem.setUid(_services_users.SelectUserUID(tmp_user_id));
+        }
+        return lstResult;
     }
 
 

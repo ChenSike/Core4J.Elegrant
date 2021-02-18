@@ -9,6 +9,8 @@ import ikcoder.services.mappers.Mapper_users;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import javax.servlet.http.PushBuilder;
+import java.util.ArrayList;
 import java.util.List;
 
 @Component
@@ -71,6 +73,18 @@ public class Services_users {
         return DTO_users;
     }
 
+    public DTO_users GetUser(Integer userid)
+    {
+        DTO_users DTO_users = _mapper_users.Select_users_id(userid);
+        return DTO_users;
+    }
+
+    public String SelectUserUID(Integer userid)
+    {
+        DTO_users DTO_users = _mapper_users.Select_users_id(userid);
+        return DTO_users.getUid();
+    }
+
     public int VerifyUser(DTI_users DT_users)
     {
         if(DT_users==null)
@@ -96,5 +110,6 @@ public class Services_users {
         List<DTO_users> result = _mapper_users.Select_users();
         return result;
     }
+
 
 }

@@ -12,5 +12,4 @@
     <insert id="Insert_inst">
         insert into users(name,address,type,city,code) values(#{name},#{address},#{type},#{city},#{code})
     </insert>
-
 </mapper>

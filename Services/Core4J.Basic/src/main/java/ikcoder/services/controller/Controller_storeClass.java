@@ -72,7 +72,33 @@ public class Controller_storeClass {
         }
     }
 
-    @GetMapping("/inst/class/select/{classid}")
+    @GetMapping("/store/class/status/{classid}")
+    @ResponseBody
+    public DTO_common GetClassStatus(@PathVariable(name = "classid") String classid)
+    {
+        try {
+            DTO_users dto_users = Services_common.getUserFromRedis();
+            String inst_code = dto_users.getCode();
+            DTO_inst_mapinfo dto_inst_mapinfo = services_inst_mapinfo.SelectItemByCode(inst_code);
+            DOC_inst doc_inst = docServices_inst.GetInstDocument(dto_inst_mapinfo.getDocid_basic());
+            boolean statusResult;
+            if(doc_inst.getClass(classid)!=null)
+                statusResult = true;
+            else
+                statusResult = false;
+            if(statusResult)
+                return Services_common.newCommonResStringItem("true", "8001", false,true);
+            else
+                return Services_common.newCommonResItem(services_messages.GetMessage_code("4001"), "4001", true,false);
+        }
+        catch (Exception err)
+        {
+            return Services_common.newCommonResStringItem(err.getMessage(), "4001", true,false);
+        }
+    }
+
+
+    @GetMapping("/store/class/select/{classid}")
     @ResponseBody
     public DTO_common GetClassDetail(@PathVariable(name = "classid") String classid) {
         try {
@@ -107,7 +133,7 @@ public class Controller_storeClass {
         }
     }
 
-    @GetMapping("/inst/class/remove/{classid}")
+    @GetMapping("/store/class/remove/{classid}")
     @ResponseBody
     public DTO_common SetRemove(@PathVariable(name = "classid") String classid) {
         DTO_users dto_users = Services_common.getUserFromRedis();

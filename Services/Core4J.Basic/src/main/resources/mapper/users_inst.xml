@@ -6,4 +6,7 @@
     <select id="Select_userid" resultType="ikcoder.services.entities.DTO.DTO_users_inst">
             select * from users_inst where user_id=#{userid}
     </select>
+    <select id="Select_users_instid" resultType="java.util.List">
+            select * from users_inst where inst_id=#{inst_id}
+    </select>
 </mapper>

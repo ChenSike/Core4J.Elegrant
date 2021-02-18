@@ -27,5 +27,11 @@ public class Services_users_inst {
         return result_users_inst;
     }
 
+    public List<DTO_users_inst> getCurrentUsersInstMap(Integer instid)
+    {
+        List<DTO_users_inst> lstResult = _mapper_users_inst.Select_users_instid(instid);
+        return lstResult;
+    }
+
 
 }

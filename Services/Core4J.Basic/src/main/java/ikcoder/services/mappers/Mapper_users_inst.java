@@ -9,4 +9,6 @@ public interface Mapper_users_inst {
 
     public DTO_users_inst Select_userid(Integer userid);
 
+    public List<DTO_users_inst> Select_users_instid(Integer instid);
+
 }
